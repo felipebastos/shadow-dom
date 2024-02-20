@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow DOM</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./script.js"></script>
+</head>
+
+<body>
+
+    <button class="blue">eu</button>
+    <form class="um" action="">
+        <button class="blue">Clique em mim</button>
+        <!-- forçando um probleminha incômodo sobre estilos globais -->
+        <form action="" class="um">
+            <button class="blue">Outro</button>
+        </form>
+    </form>
+    <form action="">
+        <button class="blue">Não clique</button>
+    </form>
+
+    <div id="tabela"></div>
+
+    <p>Tico desenha no blender.</p>
+
+    <div id="tabela"></div>
+    <script>
+        const root = document.querySelector("#tabela");
+        const shadow = root.attachShadow({ mode: "closed" });
+        console.log(root.shadowRoot); // Vai retornar null porque o shadow DOM está fechado
+        const p = document.createElement("p");
+        p.textContent = "O Josézinho chegou.";
+        shadow.appendChild(p);
+        // O estilo fica no escopo interno do shadow DOM
+        const style = document.createElement("style");
+        style.textContent = "p { background-color: cyan; }";
+        shadow.appendChild(style);
+    </script>
+
+    <hr>
+    <! -- Consulte o arquivo script.js para ver o código onde se definiu a tag customizada -->
+        <h1>Componentes customizados</h1>
+        <h2>Primeira lista</h2>
+        <app-lista texto="['oi', 'oi', 'oi']"></app-lista>
+        <h2>Segunda lista</h2>
+        <app-lista texto="['mexe', 'a', 'cabeça', 'dançar', 'kuduro']"></app-lista>
+</body>
+
+</html>
